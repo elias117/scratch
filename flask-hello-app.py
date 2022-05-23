@@ -3,9 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 app = Flask(__name__)
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = "postgresql://postgres:postgres@localhost:5432/scratch"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres@localhost:5432/scratch"
 db = SQLAlchemy(app)
 
 migrate = Migrate(app, db)
@@ -20,7 +18,9 @@ class Person(db.Model):
 
 @app.route("/")
 def index():
-    person = Person.query.filter(Person.name.ilike("{}".format("Elias"))).first()
+    person = Person.query.filter(
+        Person.name.ilike(
+            "{}".format("Elias"))).first()
     return "Hello {}!".format(person.name)
 
 
