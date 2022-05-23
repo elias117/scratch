@@ -11,11 +11,14 @@
         <input type="text" id="description" name="description"/>
         <input type="Submit" value="Create"/>
     </form>
-    
+    <form id="deleteForm">
+        <input type="text" id="todo_id" name="id"/>
+        <input type="Submit" value="Delete"/>
+    </form>
 
     <ul id="list">
         {%for d in data%}
-            <li>{{d.id}}: {{d.description}}</li>
+            <li id="todo:{{d.id}}">{{d.id}}: {{d.description}}</li>
         {%endfor%}
     </ul>
 
@@ -42,6 +45,30 @@
             .catch(function(jsonResponse) {
                 console.log("SOMETHING WENT WRONG!");
             })
+        }
+        document.getElementById('deleteForm').onsubmit = function(e) {
+            e.preventDefault();
+            let id_to_delete = document.getElementById("todo_id").value;
+            fetch(`/todo/delete/${id_to_delete}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(function(response)
+            {
+                return response.json();
+            })
+            .then(function(jsonResponse)
+            {
+                console.log(jsonResponse);
+                let id_to_delete = document.getElementById("todo_id").value;
+                window.location.reload();
+                document.getElementById(`todo:${id_to_delete}`).remove()
+            })
+            .catch(function(jsonResponse){
+                console.log("SOMETHING WENT WRONG!");
+            });
         }
     </script>
 </body>

@@ -43,3 +43,13 @@ def create_todo():
         return jsonify({
             "success": False
         })
+
+
+@app.route("/todo/delete/<int:todo_id>", methods=["DELETE"])
+def delete_todo(todo_id):
+    todo_to_delete = Todos.query.filter(Todos.id == todo_id).one()
+    db.session.delete(todo_to_delete)
+    db.session.commit()
+    return jsonify({
+        "success": True
+    }), 200
