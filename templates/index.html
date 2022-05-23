@@ -7,14 +7,33 @@
     <title>Document</title>
 </head>
 <body>
-    <form id="createForm">
-        <input type="text" id="description" name="description"/>
-        <input type="Submit" value="Create"/>
-    </form>
-    <form id="deleteForm">
-        <input type="text" id="todo_id" name="id"/>
-        <input type="Submit" value="Delete"/>
-    </form>
+    <div>
+        <form id="createForm">
+            <input type="text" id="description" name="description"/>
+            <input type="Submit" value="Create"/>
+        </form>
+    </div>
+    <hr>
+    <div>
+        <form id="deleteForm">
+            <input type="text" id="todo_id" name="id"/>
+            <input type="Submit" value="Delete"/>
+        </form>
+    </div>
+    <hr>
+    <div>
+        <form id = "updateForm">
+            <label for="update_id">id</label>
+            <div>
+                <input type="text" id="update_id" name="update_id"/>
+            </div>
+            <label for="update_description">new description</label>
+            <div>
+                <input type="text" id="update_description" name="update_description"/>
+                <input type="Submit" value="Update"/>
+            </div>
+        </form>
+    </div>
 
     <ul id="list">
         {%for d in data%}
