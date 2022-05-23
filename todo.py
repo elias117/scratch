@@ -39,29 +39,3 @@ def create_todo():
         return jsonify({
             "success": False
         })
-
-
-@app.route("/todo", methods=["POST", "GET"])
-def delete_todo():
-    id = request.args.get("id", -1, type=int)
-    if id is None:
-        print("foo")
-        return jsonify({
-            "success": False
-        })
-    print(id)
-    todo_to_delete = Todos.query.filter(Todos.id == id).one_or_none()
-    if todo_to_delete is None:
-        print("bar")
-        return jsonify({
-            "success": False
-        })
-    try:
-        db.session.delete(todo_to_delete)
-        db.session.commit()
-        return render_template(url_for("index"))
-    except BaseException:
-        print("jsdfdsf")
-        return jsonify({
-            "success": False
-        })

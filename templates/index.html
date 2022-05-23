@@ -11,11 +11,6 @@
         <input type="text" name="description"/>
         <input type="Submit" value="Create"/>
     </form>
-    <form method="post" action="/todo">
-        <input type="text" name="id"/>
-        <input type="Submit" value="Delete"/>
-    </form>
-    
     {%for d in data%}
         <li>{{d.id}}: {{d.description}}</li>
     {%endfor%}
