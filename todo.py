@@ -25,7 +25,8 @@ def index():
 
 @app.route("/todo/create", methods=["POST"])
 def create_todo():
-    description = request.form.get("description", None)
+    data = request.get_json()
+    description = data.get("description", None)
     if description is None:
         return jsonify({
             "success": False
@@ -34,7 +35,10 @@ def create_todo():
         new_todo = Todos(description=description)
         db.session.add(new_todo)
         db.session.commit()
-        return redirect(url_for("index"))
+        return jsonify({
+            'id': new_todo.id,
+            'description': new_todo.description
+        })
     except BaseException:
         return jsonify({
             "success": False
