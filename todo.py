@@ -53,3 +53,17 @@ def delete_todo(todo_id):
     return jsonify({
         "success": True
     }), 200
+
+
+@app.route("/todo/update", methods=["PATCH"])
+def update_todo():
+    data = request.get_json()
+    id_to_update = data["id"]
+    new_description = data["description"]
+    todo_to_update = Todos.query.filter(Todos.id == id_to_update).one()
+    todo_to_update.description = new_description
+    db.session.add(todo_to_update)
+    db.session.commit()
+    return jsonify({
+        "success": True,
+    })

@@ -89,6 +89,29 @@
                 console.log("SOMETHING WENT WRONG!");
             });
         }
+        document.getElementById('updateForm').onsubmit = function(e) {
+            e.preventDefault();
+            let id_to_update = document.getElementById('update_id').value;
+            let new_description = document.getElementById("update_description").value;
+            fetch("/todo/update", {
+                method: 'PATCH',
+                body: JSON.stringify({"id": id_to_update, "description": new_description}),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(function(response)
+            {
+                return response.json();
+            })
+            .then(function(jsonResponse){
+                console.log(jsonResponse);
+                let id_to_update = document.getElementById('update_id').value;
+                let new_description = document.getElementById("update_description").value;
+                window.location.reload();
+                document.getElementById(`todo:${id_to_update}`).innerHTML = new_description;
+            })
+        }
     </script>
 </body>
 </html>
